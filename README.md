@@ -1,4 +1,4 @@
 Shell-Programming-Tutorial
 ==========================
 
-Unix/Linux Shell 编程快速入门教程
+Unix/Linux Shell编程极简入门实践
