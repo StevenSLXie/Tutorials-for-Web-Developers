@@ -152,7 +152,7 @@ echo "My name is ${USERNAME}. People usually call me ${USERNAME:0:6}."
 
 `My name is StevenSLXie. People usually call me Steven.`
 
-这时候，`${USERNAME:0:6}`的作用是取字符串的一部分。第一个数字0是指截取的起始部分，则第二个数字6则是指截取的长度。再比如`${#USERNAME}`则是获取字符串的长度。更多的字符串用法，我们将在后面的正则表达式哪一节看到更多。
+这时候，`${USERNAME:0:6}`的作用是取字符串的一部分。第一个数字0是指截取的起始部分，则第二个数字6则是指截取的长度。再比如`${#USERNAME}`则是获取字符串的长度。更多的字符串用法，我们将在后面的正则表达式哪一节看到。
 
 <h4>3. 数组</h4>
 数组可以这样简单粗暴地定义：
