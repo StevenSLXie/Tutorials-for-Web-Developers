@@ -394,7 +394,7 @@ db.movie.update({title:'Seven'}, {$set:{likes:134371}})
 db.movie.update({title:'Seven'}, {$inc:{likes:2}})
 ```
 
-如果你查询的话，会发现点赞数变为134373了，这里用的是`$inc`。
+如果你查询的话，会发现点赞数变为134373了，这里用的是`$inc`。除了增量更新，MongoDB还提供了很多灵活的更新选项，具体可以看：http://docs.mongodb.org/manual/reference/operator/update-field/ 。
 
 注意如果有多部符合要求的电影。则默认只会更新第一个。如果要多个同时更新，要设置`{multi:true}`，像下面这样：
 ```
@@ -403,13 +403,46 @@ db.movie.update({}, {$inc:{likes:10}},{multi:true})
 
 所有电影的赞数都多了10.
 
-注意，对于有多个value的key，如果你采用上述的方法更新的话，可能会有问题，比如我们尝试以下操作：
+注意，以上的更新操作会替换掉原来的值，所以如果你是想在原有的值得基础上增加一个值的话，则应该用`$push`，比如，为《七宗罪》添加一个popular的tags。
+
+```
+db.movie.update({'title':'Seven'}, {$push:{'tags':'popular'}})
+```
+你会发现《七宗罪》现在有四个标签：
+
+```
+	"tags" : [
+		"drama",
+		"mystery",
+		"thiller",
+		"popular"
+	],
+
+```
+<h4>7. 删除</h4>
+
+删除的句法和find很相似，比如，要删除标签为romance的电影，则：
+```
+db.movie.remove({'tags':'romance'})
+```
+
+考虑到我们数据库条目异常稀少，就不建议你执行这条命令了~
+
+注意，上面的例子会删除所有标签包含romance的电影。如果你只想删除第一个，则
+```
+db.movie.remove({'tags':'romance'},1)
+```
+
+如果不加任何限制：
+
+```
+db.movie.remove()
+```
+
+会删除movie这个集合下的所有文件。
+
+<h4>7. 局部查询</h4>
 
 
-
-
-
-
-<h4>7. 条件操作</h4>
 <h4>8. 排序和索引</h4>
 <h4>9. 待续</h4>
