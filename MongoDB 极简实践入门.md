@@ -493,6 +493,19 @@ db.movie.find().sort({'title':1}).pretty()
 
 同样地，1是升序，-1是降序。默认是1。
 
+```
+db.movie.getIndexes()
+```
+
+将返回所有索引，包括其名字。
+
+而
+
+```
+db.movie.dropIndex('index_name')
+```
+
+将删除对应的索引。
 
 <h4>11. 聚合</h4>
 
@@ -595,6 +608,60 @@ query是查找出匹配的文件，和find是一样的，而update则是更新li
 
 `findAndModify`还支持更多的操作，具体见：http://docs.mongodb.org/manual/reference/command/findAndModify/。
 
+
+<h4>13. 文本搜索</h4>
+
+除了前面介绍的各种深度查询功能，MongoDB还支持文本搜索。对文本搜索之前，我们需要先对要搜索的key建立一个text索引。假定我们要对标题进行文本搜索，我们可以先这样：
+
+```
+db,movie.ensureIndex({title:'text'})
+```
+
+接着我们就可以对标题进行文本搜索了，比如，查找带有"Gump"的标题：
+
+```
+db.movie.find({$text:{$search:"Gump"}}).pretty()
+```
+
+注意text和search前面的$符号。
+
+这个例子里，文本搜索作用不是非常明显。但假设我们要搜索的key是一个长长的文档，这种text search的方便性就显现出来了。MongoDB目前支持15种语言的文本搜索。
+
+<h4>14. 正则表达式</h4>
+
+MongoDB还支持基于正则表达式的查询。如果不知道正则表达式是什么，可以参考<a href="http://en.wikipedia.org/wiki/Regular_expression">Wikipedia</a>。这里简单举几个例子。比如，查找标题以`b`结尾的电影信息：
+
+```
+db.movie.find({title:{$regex:'.*b$'}}).pretty()
+```
+
+也可以写成：
+
+```
+db.movie.find({title:/.*b$/}).pretty()
+```
+
+查找含有'Fight'标题的电影：
+
+```
+db.movie.find({title:/Fight/}).pretty()
+```
+
+注意以上匹配都是区分大小写的，如果你要让其不区分大小写，则可以：
+
+```
+db.movie.find({title:{$regex:'fight.*b',$options:'$i'}}).pretty()
+```
+
+`$i`是insensitive的意思。这样的话，即使是小写的fight，也能搜到了。
+
+<h4>15. 后记</h4>
+
+至此，MongoDB的最基本的内容就介绍得差不多了。如果有什么遗漏的以后我会补上來。如果你一路看到底完全了这个入门教程，恭喜你，你一定是一个有毅力的人。
+
+把这个文档过一遍，不会让你变成一个MongoDB的专家(如果会那就太奇怪了)。但如果它能或多或少减少你上手的时间，或者让你意识到“咦，MongoDB其实没那么复杂”，那么这个教程的目的也就达到啦。
+
+这个文档是匆忙写就的，出错简直是一定的。
 
 
 
