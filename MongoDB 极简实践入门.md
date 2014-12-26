@@ -77,15 +77,97 @@ SQL具备了强大了的深度查询能力，能满足各式各样的查询要�
 
 MongoDB可以在Windows、Linux、Mac OS X等主流平台运行，而且下载和安装非常简单，非常友好。这篇文档的例子均在OS X测试过，有充足的理由相信，在其它平台也能顺利运行。
 
-Windows的安装可以参考：http://www.w3cschool.cc/mongodb/mongodb-window-install.html；
+Windows的安装和设置可以参考：http://www.w3cschool.cc/mongodb/mongodb-window-install.html；
 
-Linux的安装可以参考：http://www.w3cschool.cc/mongodb/mongodb-linux-install.html；
+Linux的安装和设置可以参考：http://www.w3cschool.cc/mongodb/mongodb-linux-install.html；
 
+Mac OS X下的安装和设置：
 
+<ul>
+<li>1. 在https://www.mongodb.org/ 下载适合你的Mac的MongoDb;</li>
+<li>2. 下载得到的文件是一个zip文件，解压，然后放到你想到的文件夹，比如/Users/Steven/MongoDB;</li>
+<li>3. 创建一个你喜欢的文件夹来存储你的数据，比如/User/Steven/myData;</li>
+<li>4. 打开Terminal，cd到2里面那个文件夹/Users/Steven/MongoDB，再cd bin;</li>
+<li>5. 输入./mongod --dbpath /User/Steven/myData,等到出现类似“waiting for connections on port 27017”，说明MongoDB服务器已架设好，而数据将储存在myData里面；</li>
+<li>6. 新打开一个Terminal, cd /Users/Steven/MongoDB/bin,然后运行./mongo;顺利的话它将出现一个interactive shell让你进行各种操作，而你的数据将储存在myData里</li>
+</ul>
 
+如果以上的各个步骤都运行顺利，就可以跳到下一节啦。
 
-<h4>3. 创建集合</h4>
-<h4>4. 新建第一个文件</h4>
+<h4>3. 创建集合和删除集合</h4>
+在上一节执行完步骤6后，你会看到命令行里显示：`connecting to: test`，这里的`test`是默认的数据库。这里我们可以新建一个数据库。在命令行里打入：
+
+```
+use tutorial
+```
+
+这样就新建了一个叫做`tutorial`的数据库。你可以执行
+
+```
+show databases
+```
+
+来显示当前的数据库。不过这时候由于我们的新数据库是空的，所以会显示类似这样的：
+
+```
+admin  (empty)
+local  0.078GB
+```
+
+我们试着往我们的数据库里添加一个集合(collection)，MongoDB里的集合和SQL里面的表格是类似的：
+
+```
+db.createCollection('author')
+```
+
+顺利的话会显示：
+
+```
+{ "ok" : 1 }
+```
+
+表示创建成功。
+
+你可以再回头执行：
+
+```
+show databases
+```
+
+这时候我们的tutorial集合已经位列其中。你可以再执行
+
+```
+show collections
+```
+
+可以看到创建的集合author也在其中。
+
+我们暂时不需要author这个集合，所以我们可以通过执行：
+
+```
+db.author.drop()
+```
+
+来将其删除。这时候你再执行`show collections`，就再也看不到我们的author了。
+
+这一节要记住的点主要只有一个：集合(collection)类似于SQL的表格(table)，类似于Excel的一个个表格。
+
+<h4>4. 插入</h4>
+
+想象一个精简版的“豆瓣电影”。我们需要创建一个数据库，来存储每部电影的信息，电影的信息包括：
+
+<ul>
+<li>电影名字</li>
+<li>导演</li>
+<li>主演(可能多个)</li>
+<li>类型标签(可能多个)</li>
+<li>上映日期</li>
+<li>票房</li>
+<li>喜欢人数</li>
+<li>不喜欢人数</li>
+<li>用户评论(可能多个)</li>
+</ul>
+
 <h4>5. 查询</h4>
 <h4>6. 更新</h4>
 <h4>7. 条件操作</h4>
