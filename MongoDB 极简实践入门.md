@@ -569,3 +569,5 @@ db.movie.aggregate([{$group:{_id:'$directed_by',num_movie:{$sum:1}}}])
 
 
 
+
+
