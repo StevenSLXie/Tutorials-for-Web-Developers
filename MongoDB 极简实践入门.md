@@ -562,6 +562,41 @@ db.movie.aggregate([{$group:{_id:'$directed_by',num_movie:{$sum:1}}}])
 
 注意这些数据都纯属虚构啊！
 
+除了`$sum`，还有其它一些操作。比如：
+```
+db.movie.aggregate([{$group:{_id:'$directed_by',num_movie:{$avg:'$likes'}}}])
+```
+
+统计平均的赞。
+
+```
+db.movie.aggregate([{$group:{_id:'$directed_by',num_movie:{$first:'$likes'}}}]
+```
+
+返回每个导演的电影中的第一部的赞数。
+
+其它各种操作可以参考：http://docs.mongodb.org/manual/reference/operator/aggregation/group/ 。
+
+<h4>12. All or Nothing?</h4>
+
+MongoDB支持单个文件内的原子化操作(atomic operation)，这是说，可以将多条关于同一个文件的指令放到一起，他们要么一起执行，要么都不执行。而不会执行到一半。有些场合需要确保多条执行一起顺次执行。比如一个场景：一个电商网站，用户查询某种商品的剩余数量，以及用户购买该种商品，这两个操作，必须放在一起执行。不然的话，假定我们先执行剩余数量的查询，这是假定为1，用户接着购买，但假如这两个操作之间还加入了其它操作，比如另一个用户抢先购买了，那么原先购买用户的购买的行为就会造成数据库的错误，因为实际上这种商品以及没有存货了。但因为查询剩余数量和购买不是在一个“原子化操作”之内，因此会发生这样的错误<a href="http://www.tutorialspoint.com/mongodb/mongodb_atomic_operations.htm">[2]</a>。
+
+MongoDB提供了`findAndModify`的方法来确保atomic operation。比如这样的：
+```
+db.movie.findAndModify(
+			{
+			query:{'title':'Forrest Gump'},
+			update:{$inc:{likes:10}}
+			}
+		      )
+
+```
+query是查找出匹配的文件，和find是一样的，而update则是更新likes这个项目。注意由于MongoDB只支持单个文件的atomic operation，因此如果query出多于一个文件，则只会对第一个文件进行操作。
+
+`findAndModify`还支持更多的操作，具体见：http://docs.mongodb.org/manual/reference/command/findAndModify/。
+
+
+
 
 
 
