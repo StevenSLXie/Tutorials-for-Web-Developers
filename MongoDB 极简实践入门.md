@@ -381,7 +381,42 @@ db.movie.find().limit(2).skip(1).pretty()
 
 则跳过第一部，从第二部开始选取两部电影。
 
-<h4>6. 更新</h4>
+<h4>6. 局部查询</h4>
+
+第五节的时候我们讲了`find`的用法，但对于符合条件的条目，我们都是返回整个JSON文件的。这类似于SQL里面的`SELECT *`。有的时候，我们需要的，仅仅是部分数据，这个时候，`find`的局部查询的功能就派上用场了。先来看一个例子，返回tags为drama的电影的名字和首映日期。
+
+```
+db.movie.find({'tags':'drama'},{'debut':1,'title':1}).pretty()
+```
+
+数据库将返回：
+
+```
+{
+	"_id" : ObjectId("549cfb42f685c085f1dd47d4"),
+	"title" : "Forrest Gump",
+	"debut" : ISODate("1994-08-05T16:00:00Z")
+}
+{
+	"_id" : ObjectId("549cff96f685c085f1dd47d6"),
+	"title" : "Fight Club",
+	"debut" : ISODate("1999-11-14T16:00:00Z")
+}
+{
+	"_id" : ObjectId("549cff96f685c085f1dd47d7"),
+	"title" : "Seven",
+	"debut" : ISODate("1995-10-21T16:00:00Z")
+}
+```
+
+这里find的第二个参数是用来控制输出的，1表示要返回，而0则表示不返回。默认值是0，但`_id`是例外，因此如果你不想输出`_id`，需要显式地声明：
+
+```
+db.movie.find({'tags':'drama'},{'debut':1,'title':1,'_id':0}).pretty()
+```
+
+
+<h4>7. 更新</h4>
 很多情况下你需要更新你的数据库，比如有人对某部电影点了个赞，那么你需要更新相应的数据库。比如有人对《七宗罪》点了个赞，而它本来的赞的个数是134370，那么你需要更新到134371。可以这样操作：
 
 ```
@@ -419,7 +454,7 @@ db.movie.update({'title':'Seven'}, {$push:{'tags':'popular'}})
 	],
 
 ```
-<h4>7. 删除</h4>
+<h4>8. 删除</h4>
 
 删除的句法和find很相似，比如，要删除标签为romance的电影，则：
 ```
@@ -441,39 +476,6 @@ db.movie.remove()
 
 会删除movie这个集合下的所有文件。
 
-<h4>7. 局部查询</h4>
-
-第五节的时候我们讲了`find`的用法，但对于符合条件的条目，我们都是返回整个JSON文件的。这类似于SQL里面的`SELECT *`。有的时候，我们需要的，仅仅是部分数据，这个时候，`find`的局部查询的功能就派上用场了。先来看一个例子，返回tags为drama的电影的名字和首映日期。
-
-```
-db.movie.find({'tags':'drama'},{'debut':1,'title':1}).pretty()
-```
-
-数据库将返回：
-
-```
-{
-	"_id" : ObjectId("549cfb42f685c085f1dd47d4"),
-	"title" : "Forrest Gump",
-	"debut" : ISODate("1994-08-05T16:00:00Z")
-}
-{
-	"_id" : ObjectId("549cff96f685c085f1dd47d6"),
-	"title" : "Fight Club",
-	"debut" : ISODate("1999-11-14T16:00:00Z")
-}
-{
-	"_id" : ObjectId("549cff96f685c085f1dd47d7"),
-	"title" : "Seven",
-	"debut" : ISODate("1995-10-21T16:00:00Z")
-}
-```
-
-这里find的第二个参数是用来控制输出的，1表示要返回，而0则表示不返回。默认值是0，但`_id`是例外，因此如果你不想输出`_id`，需要显式地声明：
-
-```
-db.movie.find({'tags':'drama'},{'debut':1,'title':1,'_id':0}).pretty()
-```
 
 
 
