@@ -661,7 +661,16 @@ db.movie.find({title:{$regex:'fight.*b',$options:'$i'}}).pretty()
 
 把这个文档过一遍，不会让你变成一个MongoDB的专家(如果会那就太奇怪了)。但如果它能或多或少减少你上手的时间，或者让你意识到“咦，MongoDB其实没那么复杂”，那么这个教程的目的也就达到啦。
 
-这个文档是匆忙写就的，出错简直是一定的。
+这个文档是匆忙写就的，出错简直是一定的。如果您发现了任何错误或者有关于本文的任何建议，麻烦发邮件给我（stevenslxie at gmail.com）或者在GitHub上直接交流，不胜感激。
+
+<h4>转载声明</h4>
+如果你喜欢这篇文章，可以随意转载。但请
+<ul>
+<li>标明原作者StevenSLXie;</li>
+<li>标明原链接(https://github.com/StevenSLXie/Tutorials-for-Web-Developers/edit/master/MongoDB%20%E6%9E%81%E7%AE%80%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8.md);</li>
+<li>在可能的情况下请保持文本显示的美观。比如，请不要直接一键复制到博客之类，因为代码的显示效果可能非常糟糕;</li>
+<li>请将这个转载声明包含进来；</li>
+</ul>
 
 
 
