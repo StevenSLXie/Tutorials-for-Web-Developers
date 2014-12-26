@@ -75,7 +75,7 @@ SQL具备了强大了的深度查询能力，能满足各式各样的查询要�
 
 <h4>3. 安装与环境</h4>
 
-MongoDB可以在Windows、Linux、Mac OS X等主流平台运行，而且下载和安装非常简单，非常友好。这篇文档的例子均在OS X测试过，有充足的理由相信，在其它平台也能顺利运行。
+MongoDB可以在Windows、Linux、Mac OS X等主流平台运行，而且下载和安装非常简单，非常友好。这篇文档的例子采用MongoDB 2.6版本，均在OS X测试过，有充足的理由相信，在其它平台也能顺利运行。
 
 Windows的安装和设置可以参考：http://www.w3cschool.cc/mongodb/mongodb-window-install.html；
 
@@ -442,6 +442,40 @@ db.movie.remove()
 会删除movie这个集合下的所有文件。
 
 <h4>7. 局部查询</h4>
+
+第五节的时候我们讲了`find`的用法，但对于符合条件的条目，我们都是返回整个JSON文件的。这类似于SQL里面的`SELECT *`。有的时候，我们需要的，仅仅是部分数据，这个时候，`find`的局部查询的功能就派上用场了。先来看一个例子，返回tags为drama的电影的名字和首映日期。
+
+```
+db.movie.find({'tags':'drama'},{'debut':1,'title':1}).pretty()
+```
+
+数据库将返回：
+
+```
+{
+	"_id" : ObjectId("549cfb42f685c085f1dd47d4"),
+	"title" : "Forrest Gump",
+	"debut" : ISODate("1994-08-05T16:00:00Z")
+}
+{
+	"_id" : ObjectId("549cff96f685c085f1dd47d6"),
+	"title" : "Fight Club",
+	"debut" : ISODate("1999-11-14T16:00:00Z")
+}
+{
+	"_id" : ObjectId("549cff96f685c085f1dd47d7"),
+	"title" : "Seven",
+	"debut" : ISODate("1995-10-21T16:00:00Z")
+}
+```
+
+这里find的第二个参数是用来控制输出的，1表示要返回，而0则表示不返回。默认值是0，但`_id`是例外，因此如果你不想输出`_id`，需要显式地声明：
+
+```
+db.movie.find({'tags':'drama'},{'debut':1,'title':1,'_id':0}).pretty()
+```
+
+
 
 
 <h4>8. 排序和索引</h4>
