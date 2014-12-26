@@ -162,10 +162,56 @@ db.author.drop()
 <li>主演(可能多个)</li>
 <li>类型标签(可能多个)</li>
 <li>上映日期</li>
-<li>票房</li>
 <li>喜欢人数</li>
 <li>不喜欢人数</li>
 <li>用户评论(可能多个)</li>
+</ul>
+
+显然我们需要先创建一个叫电影的集合：
+
+```
+db.createCollection('movie')
+```
+
+然后，我们就可以插入数据了：
+
+```
+db.movie.insert(
+ {
+   title: 'Forrest Gump', 
+   directed_by: 'Robert Zemeckis',
+   starrs: ['Tom Hanks', 'Robin Wright', 'Gary Sinise'],
+   tags: ['drama', 'romance'],
+   debut: new Date(1994,7,6,0,0),
+   likes: 864367,
+   dislikes: 30127,
+   comments: [	
+      {
+         user:'user1',
+         message: 'My first comment',
+         dateCreated: new Date(2013,11,10,2,35),
+         like: 0 
+      },
+      {
+         user:'user2',
+         message: 'My first comment too!',
+         dateCreated: new Date(2013,11,11,6,20),
+         like: 0 
+      }
+   ]
+}
+)
+```
+
+请注意，这里插入数据之前，我们并不需要先声明movie这个集合里面有哪些项目。我们直接插入就可以了~这一点和SQL不一样，SQL必须先声明一个table里面有哪些列，而MongoDB不需要。
+
+把上面的例子复制进命令行应该可以顺利运行，但我强烈建议你手动打一下，或者输入一部你自己喜欢的电影。`insert`操作有几点需要注意：
+<ul>
+<li>1. 不同key-value需要用逗号隔开，而key:value中间是用冒号</li>
+<li>2. 如果一个key有多个value，哪怕当前只有一个，也</li>
+<li></li>
+<li></li>
+<li></li>
 </ul>
 
 <h4>5. 查询</h4>
