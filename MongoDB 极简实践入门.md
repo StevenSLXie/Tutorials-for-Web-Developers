@@ -355,8 +355,23 @@ db.movie.find({likes:{$gt:500000}}).pretty()
 db.movie.find({likes:{$lt:200000}}).pretty()
 ```
 
+类似的运算符还有：`$let`:小于或等于；`$get`:大于或等于；`$ne`:不等于。
 
+注意，对于包含多个值的key，同样可以用find来查询。比如：
 
+```
+db.movie.find({'tags':'romance'})
+```
+
+将返回《阿甘正传》，虽然其标签既有romance，又有drama，但只要符合一个就可以了。
+
+如果你确切地知道返回的结果只有一个，也可以用`findOne`:
+
+```
+db.movie.findOne({'title':'Forrest Gump'})
+```
+
+如果有多个结果，则会按磁盘存储顺序返回第一个。请注意，`findOne()`自带pretty模式，所以不能再加`pretty()`，将报错。
 
 
 
