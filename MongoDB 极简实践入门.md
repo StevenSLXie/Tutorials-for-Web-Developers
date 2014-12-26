@@ -496,6 +496,76 @@ db.movie.find().sort({'title':1}).pretty()
 
 <h4>11. 聚合</h4>
 
-MongoDB支持类似于SQL里面的`ORDER BY`操作。考虑这个例子：
+MongoDB支持类似于SQL里面的`GROUP BY`操作。比如当有一张学生成绩的明细表时，我们可以找出每个分数段的学生各有多少。为了实现这个操作，我们需要稍加改动我们的数据库。执行以下三条命令：
+
+```
+db.movie.update({title:'Seven'},{$set:{grade:1}})
+db.movie.update({title:'Forrest Gump'},{$set:{grade:1}})
+db.movie.update({title:'Fight Club'},{$set:{grade:2}})
+```
+
+这几条是给每部电影加一个虚拟的分级，前两部是归类是一级，后一部是二级。
+
+这里你也可以看到MongoDB的强大之处：可以动态地后续添加各种新项目。
+
+我们先通过聚合来找出总共有几种级别。
+
+```
+db.movie.aggregate([{$group:{_id:'$grade'}}])
+```
+
+输出：
+
+```
+{ "_id" : 2 }
+{ "_id" : 1 }
+```
+
+注意这里的2和1是指级别，而不是每个级别的电影数。这个例子看得清楚些：
+
+```
+db.movie.aggregate([{$group:{_id:'$directed_by'}}])
+```
+
+这里按照导演名字进行聚合。输出：
+
+```
+{ "_id" : "David Fincher" }
+{ "_id" : "Robert Zemeckis" }
+```
+
+接着我们要找出，每个导演的电影数分别有多少：
+
+```
+db.movie.aggregate([{$group:{_id:'$directed_by',num_movie:{$sum:1}}}])
+```
+
+将会输出：
+
+```
+{ "_id" : "David Fincher", "num_movie" : 2 }
+{ "_id" : "Robert Zemeckis", "num_movie" : 1 }
+```
+
+注意$sum后面的1表示只是把电影数加起来，但我们也可以统计别的数据，比如两位导演谁的赞比较多：
+
+```
+ db.movie.aggregate([{$group:{_id:'$directed_by',num_likes:{$sum:'$likes'}}}])
+```
+
+输出：
+
+```
+{ "_id" : "David Fincher", "num_likes" : 358753 }
+{ "_id" : "Robert Zemeckis", "num_likes" : 864377 }
+```
+
+注意这些数据都纯属虚构啊！
+
+
+
+
+
+
 
 
