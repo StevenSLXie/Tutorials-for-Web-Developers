@@ -180,7 +180,7 @@ db.movie.insert(
  {
    title: 'Forrest Gump', 
    directed_by: 'Robert Zemeckis',
-   starrs: ['Tom Hanks', 'Robin Wright', 'Gary Sinise'],
+   stars: ['Tom Hanks', 'Robin Wright', 'Gary Sinise'],
    tags: ['drama', 'romance'],
    debut: new Date(1994,7,6,0,0),
    likes: 864367,
@@ -207,14 +207,160 @@ db.movie.insert(
 
 把上面的例子复制进命令行应该可以顺利运行，但我强烈建议你手动打一下，或者输入一部你自己喜欢的电影。`insert`操作有几点需要注意：
 <ul>
-<li>1. 不同key-value需要用逗号隔开，而key:value中间是用冒号</li>
-<li>2. 如果一个key有多个value，哪怕当前只有一个，也</li>
-<li></li>
-<li></li>
-<li></li>
+<li>1. 不同key-value需要用逗号隔开，而key:value中间是用冒号；</li>
+<li>2. 如果一个key有多个value，value要用[]。哪怕当前只有一个value，也加上[]以备后续的添加；</li>
+<li>3. 整个“数据块”要用{}括起来；</li>
 </ul>
 
+如果你在`insert`之后看到`WriteResult({ "nInserted" : 1 })`，说明写入成功。
+
+这个时候你可以用查询的方式来返回数据库中的数据：
+```
+db.movie.find().pretty()
+```
+
+这里`find()`里面是空的，说明我们不做限制和筛选，类似于SQL没有`WHERE`语句一样。而`pretty()`输出的是经格式美化后的数据，你可以自己试试没有`pretty()`会怎么样。
+
+仔细观察`find()`的结果，你会发现多了一个叫`'_id'`的东西，这是数据库自动创建的一个ID号，在同一个数据库里，每个文件的ID号都是不同的。
+
+我们也可以同时输入多个数据：
+```
+db.movie.insert([
+ {
+   title: 'Fight Club', 
+   directed_by: 'David Fincher',
+   stars: ['Brad Pitt', 'Edward Norton', 'Helena Bonham Carter'],
+   tags: 'drama',
+   debut: new Date(1999,10,15,0,0),
+   likes: 224360,
+   dislikes: 40127,
+   comments: [	
+      {
+         user:'user3',
+         message: 'My first comment',
+         dateCreated: new Date(2008,09,13,2,35),
+         like: 0 
+      },
+      {
+         user:'user2',
+         message: 'My first comment too!',
+         dateCreated: new Date(2003,10,11,6,20),
+         like: 14 
+      },
+      {
+         user:'user7',
+         message: 'Good Movie!',
+         dateCreated: new Date(2009,10,11,6,20),
+         like: 2
+      }
+   ]
+},
+{
+   title: 'Seven', 
+   directed_by: 'David Fincher',
+   stars: ['Morgan Freeman', 'Brad Pitt',  'Kevin Spacey'],
+   tags: ['drama','mystery','thiller'],
+   debut: new Date(1995,9,22,0,0),
+   likes: 134370,
+   dislikes: 1037,
+   comments: [	
+      {
+         user:'user3',
+         message: 'Love Kevin Spacey',
+         dateCreated: new Date(2002,09,13,2,35),
+         like: 0 
+      },
+      {
+         user:'user2',
+         message: 'Good works!',
+         dateCreated: new Date(2013,10,21,6,20),
+         like: 14 
+      },
+      {
+         user:'user7',
+         message: 'Good Movie!',
+         dateCreated: new Date(2009,10,11,6,20),
+         like: 2
+      }
+   ]
+}
+])
+```
+
+顺利的话会显示：
+```
+BulkWriteResult({
+	"writeErrors" : [ ],
+	"writeConcernErrors" : [ ],
+	"nInserted" : 2,
+	"nUpserted" : 0,
+	"nMatched" : 0,
+	"nModified" : 0,
+	"nRemoved" : 0,
+	"upserted" : [ ]
+```
+
+表面我们成功地插入了两个数据。注意批量插入的格式是这样的：`db.movie.insert([{ITEM1},{ITEM2}])`。几部电影的外面需要用[]括起来。
+
+请注意，虽然collection的插入不需要先声明，但表达相同意思的key，名字要一样，比如，如果我们在一个文件里用`directed_by`来表示导演，则在其它文件也要保持同样的名字(而不是`director`之类的)。不同的名字不是不可以，技术上完全可行，但会给查询和更新带来困难。
+
+好了，到这里，我们就有了一个叫tutorial的数据库，里面有一个叫movie的集合，而movie里面有三个记录。接下来我们就可以对其进行查询了。
+
 <h4>5. 查询</h4>
+
+在上一节我们已经接触到最简单的查询`db.movie.find().pretty()`。MongoDB支持各种各样的深度查询功能。先来一个最简单的例子，找出大卫芬奇(David Fincher)导演的所有电影：
+
+```
+db.movie.find({'directed_by':'David Fincher'}).pretty()
+```
+
+将返回《搏击俱乐部》和《七宗罪》两部电影。这种搜索和SQL的`WHERE`语句是很相似的。
+
+也可以设置多个条件。比如找出大卫芬奇导演的, 摩根弗里曼主演的电影：
+
+```
+db.movie.find({'directed_by':'David Fincher', 'stars':'Morgan Freeman'}).pretty()
+```
+
+这里两个条件之间，是AND的关系，只有同时满足两个条件的电影才会被输出。同理，可以设置多个的条件，不赘述。
+
+条件之间也可以是或的关系，比如找出罗宾怀特或摩根弗里曼主演的电影：
+
+```
+db.movie.find(
+{
+  $or: 
+     [  {'stars':'Robin Wright'}, 
+        {'stars':'Morgan Freeman'}
+     ]
+}).pretty()
+```
+
+注意这里面稍显复杂的各种括号。
+
+还可以设置一个范围的搜索，比如找出50万人以上赞的电影：
+
+```
+db.movie.find({'likes':{$gt:500000}}).pretty()
+```
+
+同样要注意略复杂的括号。注意，在这些查询里，key的单引号都是可选的，也就是说，上述语句也可以写成：
+```
+db.movie.find({likes:{$gt:500000}}).pretty()
+```
+
+类似地，少于二十万人赞的电影：
+
+```
+db.movie.find({likes:{$lt:200000}}).pretty()
+```
+
+
+
+
+
+
+
 <h4>6. 更新</h4>
 <h4>7. 条件操作</h4>
 <h4>8. 排序和索引</h4>
