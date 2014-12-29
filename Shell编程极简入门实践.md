@@ -1,6 +1,6 @@
 <h2>Shell编程极简入门实践</h2>
 
-<h6>By StevenSLXie (Last updated: 21, Dec, 2014)</h6>
+<h6>By StevenSLXie (Last updated: 29, Dec, 2014)</h6>
 
 <h4>0. 写在前面</h4>
 
@@ -246,7 +246,7 @@ expr: syntax error
 
 这是因为`*`是一个特殊的字符（后面还会介绍到），而当要表达其原来的意思是，我们需要在它前面加上下划线`\`。就像这样：
 ```
-expr `2 \* 15`
+expr 2 \* 15
 ```
 
 <h5>4.2 关系判断运算符</h5>
