@@ -283,7 +283,7 @@ fi
 
 这是判断变量A是否小于8且变量B是否大于B。
 
-完整的关系判断运算符文档可以看这里：<a href=""http://www.tutorialspoint.com/unix/unix-basic-operators.htm>Unix Basic Operator</a>
+完整的关系判断运算符文档可以看这里：<a href="http://www.tutorialspoint.com/unix/unix-basic-operators.htm">Unix Basic Operator</a>
 
 <h4>5. if条件判断、while循环、for循环</h4>
 `if | while | for`语句和其它主流语言很相似，因此用起来应该不是大问题。值得注意的可能是以下几个小点：
