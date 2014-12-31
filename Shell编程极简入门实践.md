@@ -1,6 +1,6 @@
 <h2>Shell编程极简入门实践</h2>
 
-<h6>By StevenSLXie (Last updated: 29, Dec, 2014)</h6>
+<h6>By StevenSLXie (Last updated: 31, Dec, 2014)</h6>
 
 <h4>0. 写在前面</h4>
 
@@ -265,7 +265,7 @@ fi
 
 这是一个`if`条件判别语句(后面再细讲)。`-eq`判断运算符左右两边是否相等，如果是，则返回`True`，不然就返回`False`。关系判断运算符的基本格式是`[ VAR1 OPERATOR VAR2 ]`，用一个中括号括起来，这里有一点细节要注意，中括号和变量之间，需要有空格隔开。所以像`[$A -eq $B]`是会报错的。（不如自己写段代码试一试？）
 
-完整的关系判断运算符文档可以看这里：<a href=""http://www.tutorialspoint.com/unix/unix-basic-operators.htm>Unix Basic Operator</a>
+完整的关系判断运算符文档可以看这里：<a href="http://www.tutorialspoint.com/unix/unix-basic-operators.htm">Unix Basic Operator</a>
 
 <h5>4.3 逻辑运算符</h5>
 与主流编程语言用`&& and || or`来做逻辑判断稍有不同，Shell编程里，与逻辑和或逻辑分别是用`-o`和`-a`来表示的。看看下面这个例子：
