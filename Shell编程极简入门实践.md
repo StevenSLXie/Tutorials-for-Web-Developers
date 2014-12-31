@@ -249,6 +249,21 @@ expr: syntax error
 expr 2 \* 15
 ```
 
+(31-Dec-2014更新。感谢@mzhboy补充。)此外还有`let`也是挺常用的。`let`计算跟在它后面的表达式。和`let`极其类似的还有`(())`。看下面的例子：
+
+```
+A=3
+B=4
+
+let add=$A+$B
+((sub=$B-$A))
+
+echo $add
+echo $sub
+
+```
+
+除此之外还有一个强大的计算命令`bc`，这里就暂不展开了。有兴趣的同学可以看<a href="http://www.basicallytech.com/blog/?/archives/23-command-line-calculations-using-bc.html">这里</a>。
 <h5>4.2 关系判断运算符</h5>
 Shell提供了丰富的关系判断运算符，先来看一个例子，在`tutorial.sh`加入以下代码：
 ```
@@ -268,7 +283,7 @@ fi
 完整的关系判断运算符文档可以看这里：<a href="http://www.tutorialspoint.com/unix/unix-basic-operators.htm">Unix Basic Operator</a>
 
 <h5>4.3 逻辑运算符</h5>
-与主流编程语言用`&& and || or`来做逻辑判断稍有不同，Shell编程里，与逻辑和或逻辑分别是用`-o`和`-a`来表示的。看看下面这个例子：
+Shell编程里，与逻辑和或逻辑分别是用`-o`和`-a`来表示的。看看下面这个例子：
 ```
 A=10
 B=15
@@ -282,6 +297,17 @@ fi
 ```
 
 这是判断变量A是否小于8且变量B是否大于B。
+
+(31-Dec-2014更新。感谢@mzhboy指出。)除了`-o`和`-a`，`&&`和`||`也可以来表示与和或，但在表达上稍稍有一点不一样：每一个条件就要用一个中括号括起来。比如：
+
+```
+if [ $A -lt 8 ] && [ $B -gt 8 ]
+then
+    echo 'True'
+else
+    echo 'False'
+fi
+```
 
 完整的关系判断运算符文档可以看这里：<a href="http://www.tutorialspoint.com/unix/unix-basic-operators.htm">Unix Basic Operator</a>
 
@@ -333,6 +359,38 @@ for I in ${B[*]}
 ``` ` ` ```在键盘上的位置是在`Tab`上面，`1`的左边。
 
 还有一点要注意，当我们对一个已经定义过的变量进行重新赋值的时候，是不需要加`$`的，上面的例子```A=`expr $A + 1` ```和```B=(${B[*]} $A)```里，等式左边的变量都不需要加`$`。
+
+(31-Dec-2014更新。感谢@mzhboy指出。)此外还有一种`for`的情况需要注意。我们看下面这段代码：
+
+```
+A="cat dog"
+
+for I in $A
+    do
+        echo $I
+    done
+    
+for I in "$A"
+    do
+        echo $I
+    done
+```
+
+第一个`echo`的输出是：
+```
+cat
+dog
+```
+
+第二个：
+
+```
+cat dog
+```
+
+也就是说当我们用双引号将`$A`括起来时，cat和dog中间的空格自动被忽视了，整个A被当做一个字符串看待。这一点要注意，通常这个情况下（因为我们用for来枚举），所以一般用第一种。
+
+
 
 <h4>6. 函数</h4>
 Shell脚本里当然可以定义函数。比如这样的：
@@ -476,7 +534,7 @@ but this line has several characters.
 And this marks the end of the file.
 ```
 
-可以观察到，首字母大写的`But`被替换成`but`。替换的基本格式是`'s/a/b/'`，`a`和`b`分别代表替换前和替换后。我们再来多看几个例子，首先将`test-2.txt`文档的内容改为：
+可以观察到，首字母大写的`But`被替换成`but`。替换的基本格式是`'s/old/new/'`，`old`和`new`分别代表替换前和替换后，而且一般用单引号，除非需要shell变量展开到sed命令中才用双引号（31-Dec-2014，感谢@mzhboy补充）。我们再来多看几个例子，首先将`test-2.txt`文档的内容改为：
 
 ```
 1.This is file with several lines
