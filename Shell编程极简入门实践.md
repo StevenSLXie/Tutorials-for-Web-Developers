@@ -165,7 +165,7 @@ NAMES[1]='Peter'
 NAMES[2]='David'
 ```
 
-当数组体量太大时，这样定义未免麻烦，因此我们也可以用一行声明的方式来定义：
+当数组体量太大时，这样定义未免麻烦，在bash里面（01-Jan-2015更新，感谢@mzhboy提醒，其它的一些shell，如zsh、ash不能用这种方法。）我们也可以用一行声明的方式来定义：
 
 ```
 declare -a NAMES=('Steven' 'Peter' 'David')
