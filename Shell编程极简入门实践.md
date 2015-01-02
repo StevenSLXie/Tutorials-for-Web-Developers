@@ -283,7 +283,7 @@ fi
 完整的关系判断运算符文档可以看这里：<a href="http://www.tutorialspoint.com/unix/unix-basic-operators.htm">Unix Basic Operator</a>
 
 <h5>4.3 逻辑运算符</h5>
-Shell编程里，与逻辑和或逻辑分别是用`-o`和`-a`来表示的。看看下面这个例子：
+Shell编程里，与逻辑和或逻辑分别是用`-a`和`-o`来表示的(02-Jan-2015更新。感谢@星光 修正)。看看下面这个例子：
 ```
 A=10
 B=15
