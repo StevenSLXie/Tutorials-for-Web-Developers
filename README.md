@@ -2,7 +2,7 @@ Tutorials for Web Developers
 ==========================
 This repository is a collection of tutorials, technical notes written by me. The name of this repository is somewhat confusing and does not fully reflect the scope of this series.
 
-So far the topics here include algorithms, data structure, Shell programming and MongoDB database, Python basics......
+So far the topics here include algorithms, data structure, Shell programming, MongoDB database and Python basics......
 
 I am actively updating it.
 
