@@ -12,7 +12,6 @@ Python的map/filter/reduce常见用法例举
 用for循环的解法
 
 ```python
-array = [3,5,7,12,18]
 cube_array = []
 
 def cube(x):
@@ -26,17 +25,15 @@ for a in array:
 或者简单一点：
 
 ```python
-array = [3,5,7,12,18]
 cube_array = []
 
 for a in array:
     cube_array.append(a**3)
 ```
 
-用map只需要一行（array的定义不算啦）
+用map只需要一行。
 
 ```
-array = [3,5,7,12,18]
 cube_array = map(lambda a:a**3,array)
 ```
 
@@ -47,8 +44,6 @@ cube_array = map(lambda a:a**3,array)
 如果map和lambda的交叉使用一下子让你招架不住的话，可以看看下面这个例子：
 
 ```python
-array = [3,5,7,12,18]
-
 def cube(a):
     return a**3
 
@@ -63,7 +58,6 @@ lambda的更多注意事项可以参考[这篇](https://pythonconquerstheunivers
 
 这个例子也可以用Python强大的list comprehension来实现：
 ```python
-array = [3,5,7,12,18]
 cube_array = [x**3 for x in array]
 ```
 
@@ -73,7 +67,7 @@ cube_array = [x**3 for x in array]
 <h4>2. filter</h4>
 filter顾名思义，是对一个sequence中的每一个元素进行过滤，返回符合条件的那些元素。用法是`filter(func,seq)`，和map很像。
 
-**例2** 返回array中的所有奇数。
+**例2** 返回`array = [3,5,7,12,18]`中的所有奇数。
 
 ```python
 print filter(lambda x:x%2, array)
