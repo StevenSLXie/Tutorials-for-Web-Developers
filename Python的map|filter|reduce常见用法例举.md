@@ -33,7 +33,7 @@ for a in array:
 
 用map只需要一行。
 
-```
+```python
 cube_array = map(lambda a:a**3,array)
 ```
 
