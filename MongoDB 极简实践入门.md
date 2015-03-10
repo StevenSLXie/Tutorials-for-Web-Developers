@@ -667,7 +667,7 @@ db.movie.find({title:{$regex:'fight.*b',$options:'$i'}}).pretty()
 如果你喜欢这篇文章，可以随意转载。但请
 <ul>
 <li>标明原作者StevenSLXie;</li>
-<li>标明原链接(https://github.com/StevenSLXie/Tutorials-for-Web-Developers/edit/master/MongoDB%20%E6%9E%81%E7%AE%80%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8.md);</li>
+<li>标明原链接(https://github.com/StevenSLXie/Tutorials-for-Web-Developers/blob/master/MongoDB%20%E6%9E%81%E7%AE%80%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8.md);</li>
 <li>在可能的情况下请保持文本显示的美观。比如，请不要直接一键复制到博客之类，因为代码的显示效果可能非常糟糕;</li>
 <li>请将这个转载声明包含进来；</li>
 </ul>

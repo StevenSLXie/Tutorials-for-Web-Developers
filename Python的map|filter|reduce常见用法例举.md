@@ -180,7 +180,7 @@ print map(lambda x:x*x,filter(lambda x:x%2!=0 and x%13!=0,range(1,101)))
 如果你喜欢这篇文章，可以随意转载。但请
 <ul>
 <li>标明原作者StevenSLXie;</li>
-<li>标明原链接(https://github.com/StevenSLXie/Shell-Programming-Tutorial/edit/master/%E6%95%99%E7%A8%8B.md);</li>
+<li>标明原链接(https://github.com/StevenSLXie/Tutorials-for-Web-Developers/blob/master/Python%E7%9A%84map%7Cfilter%7Creduce%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E4%BE%8B%E4%B8%BE.md);</li>
 <li>在可能的情况下请保持文本显示的美观。比如，请不要直接一键复制到博客之类，因为代码的显示效果可能非常糟糕;</li>
 <li>请将这个转载声明包含进来；</li>
 </ul>
