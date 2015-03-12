@@ -614,7 +614,7 @@ query是查找出匹配的文档，和find是一样的，而update则是更新li
 除了前面介绍的各种深度查询功能，MongoDB还支持文本搜索。对文本搜索之前，我们需要先对要搜索的key建立一个text索引。假定我们要对标题进行文本搜索，我们可以先这样：
 
 ```
-db,movie.ensureIndex({title:'text'})
+db.movie.ensureIndex({title:'text'})
 ```
 
 接着我们就可以对标题进行文本搜索了，比如，查找带有"Gump"的标题：
