@@ -355,7 +355,7 @@ db.movie.find({likes:{$gt:500000}}).pretty()
 db.movie.find({likes:{$lt:200000}}).pretty()
 ```
 
-类似的运算符还有：`$let`:小于或等于；`$get`:大于或等于；`$ne`:不等于。
+类似的运算符还有：`$lte`:小于或等于；`$gte`:大于或等于；`$ne`:不等于。
 
 注意，对于包含多个值的key，同样可以用find来查询。比如：
 
