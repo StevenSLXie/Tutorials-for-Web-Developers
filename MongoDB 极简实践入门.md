@@ -583,7 +583,7 @@ db.movie.aggregate([{$group:{_id:'$directed_by',num_movie:{$avg:'$likes'}}}])
 统计平均的赞。
 
 ```
-db.movie.aggregate([{$group:{_id:'$directed_by',num_movie:{$first:'$likes'}}}]
+db.movie.aggregate([{$group:{_id:'$directed_by',num_movie:{$first:'$likes'}}}])
 ```
 
 返回每个导演的电影中的第一部的赞数。
