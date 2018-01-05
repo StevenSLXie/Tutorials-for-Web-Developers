@@ -655,6 +655,12 @@ db.movie.find({title:{$regex:'fight.*b',$options:'$i'}}).pretty()
 
 `$i`是insensitive的意思。这样的话，即使是小写的fight，也能搜到了。
 
+```
+db.movie.find({title: /fight.*b/i}).pretty()
+```
+
+当然，这样也是可以，这是 JS 正则写法
+
 <h4>15. 后记</h4>
 
 至此，MongoDB的最基本的内容就介绍得差不多了。如果有什么遗漏的以后我会补上來。如果你一路看到底完全了这个入门教程，恭喜你，你一定是一个有毅力的人。
