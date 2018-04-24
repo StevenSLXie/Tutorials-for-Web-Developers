@@ -260,12 +260,13 @@ let add=$A+$B
 
 echo $add
 echo $sub
-
 ```
 
 除此之外还有一个强大的计算命令`bc`，这里就暂不展开了。有兴趣的同学可以看<a href="http://www.basicallytech.com/blog/?/archives/23-command-line-calculations-using-bc.html">这里</a>。
+
 <h5>4.2 关系判断运算符</h5>
 Shell提供了丰富的关系判断运算符，先来看一个例子，在`tutorial.sh`加入以下代码：
+
 ```
 A=10
 B=15
@@ -283,7 +284,10 @@ fi
 完整的关系判断运算符文档可以看这里：<a href="http://www.tutorialspoint.com/unix/unix-basic-operators.htm">Unix Basic Operator</a>
 
 <h5>4.3 逻辑运算符</h5>
-Shell编程里，与逻辑和或逻辑分别是用`-a`和`-o`来表示的(02-Jan-2015更新。感谢@星光 修正)。看看下面这个例子：
+
+Shell编程里，与逻辑和或逻辑分别是用`-a`和`-o`来表示的(02-Jan-2015更新。感谢@星光 修正)。
+看看下面这个例子：
+
 ```
 A=10
 B=15
