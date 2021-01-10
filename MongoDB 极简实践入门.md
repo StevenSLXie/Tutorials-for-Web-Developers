@@ -197,20 +197,20 @@ db.movie.insert(
    directed_by: 'Robert Zemeckis',
    stars: ['Tom Hanks', 'Robin Wright', 'Gary Sinise'],
    tags: ['drama', 'romance'],
-   debut: new Date(1994,7,6,0,0),
+   debut: new Date("1994-07-06T00:00:00"),
    likes: 864367,
    dislikes: 30127,
    comments: [	
       {
          user:'user1',
          message: 'My first comment',
-         dateCreated: new Date(2013,11,10,2,35),
+         dateCreated: new Date("2020-10-15T00:00:00"),
          like: 0 
       },
       {
          user:'user2',
          message: 'My first comment too!',
-         dateCreated: new Date(2013,11,11,6,20),
+         dateCreated: new Date("2019-04-15T00:00:00"),
          like: 0 
       }
    ]
@@ -246,26 +246,26 @@ db.movie.insert([
    directed_by: 'David Fincher',
    stars: ['Brad Pitt', 'Edward Norton', 'Helena Bonham Carter'],
    tags: 'drama',
-   debut: new Date(1999,10,15,0,0),
+   debut: new Date("1999-10-15T00:00:00"),
    likes: 224360,
    dislikes: 40127,
    comments: [	
       {
          user:'user3',
          message: 'My first comment',
-         dateCreated: new Date(2008,09,13,2,35),
+         dateCreated: new Date("2020-10-15T01:00:00"),
          like: 0 
       },
       {
          user:'user2',
          message: 'My first comment too!',
-         dateCreated: new Date(2003,10,11,6,20),
+         dateCreated: new Date("2020-11-15T01:00:00"),
          like: 14 
       },
       {
          user:'user7',
          message: 'Good Movie!',
-         dateCreated: new Date(2009,10,11,6,20),
+         dateCreated: new Date("2020-10-15T08:00:00"),
          like: 2
       }
    ]
@@ -275,26 +275,26 @@ db.movie.insert([
    directed_by: 'David Fincher',
    stars: ['Morgan Freeman', 'Brad Pitt',  'Kevin Spacey'],
    tags: ['drama','mystery','thiller'],
-   debut: new Date(1995,9,22,0,0),
+   debut: new Date("1995-10-22T01:00:00"),
    likes: 134370,
    dislikes: 1037,
    comments: [	
       {
          user:'user3',
          message: 'Love Kevin Spacey',
-         dateCreated: new Date(2002,09,13,2,35),
+         dateCreated: new Date("2020-12-15T01:00:00"),
          like: 0 
       },
       {
          user:'user2',
          message: 'Good works!',
-         dateCreated: new Date(2013,10,21,6,20),
+         dateCreated: new Date("2020-10-15T11:22:33"),
          like: 14 
       },
       {
          user:'user7',
          message: 'Good Movie!',
-         dateCreated: new Date(2009,10,11,6,20),
+         dateCreated: new Date("2020-08-15T01:00:00"),
          like: 2
       }
    ]
