@@ -468,24 +468,10 @@ db.movie.updateOne({'title':'Seven'}, {$push:{'tags':'popular'}})
 
 删除的句法和find很相似，比如，要删除标签为romance的电影，则：
 ```
-db.movie.remove({'tags':'romance'})
+db.movie.deleteOne({'tags':'romance'})
 ```
 
-考虑到我们数据库条目异常稀少，就不建议你执行这条命令了~
-
-注意，上面的例子会删除所有标签包含romance的电影。如果你只想删除第一个，则
-```
-db.movie.remove({'tags':'romance'},1)
-```
-
-如果不加任何限制：
-
-```
-db.movie.remove()
-```
-
-会删除movie这个集合下的所有文档。
-
+考虑到我们数据库条目异常稀少，就不建议你执行这条命令了。同样地，该命令只删除满足条件的第一条记录。如果要删除满足条件的所有记录，则使用`deleteMany`
 
 <h4>10. 索引和排序</h4>
 
