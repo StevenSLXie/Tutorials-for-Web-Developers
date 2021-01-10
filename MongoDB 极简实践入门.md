@@ -304,15 +304,10 @@ db.movie.insert([
 
 顺利的话会显示：
 ```
-BulkWriteResult({
-	"writeErrors" : [ ],
-	"writeConcernErrors" : [ ],
-	"nInserted" : 2,
-	"nUpserted" : 0,
-	"nMatched" : 0,
-	"nModified" : 0,
-	"nRemoved" : 0,
-	"upserted" : [ ]
+{ acknowledged: true,
+  insertedIds: 
+   { '0': ObjectId("5ffafff5f136fdd9f4ca1492"),
+     '1': ObjectId("5ffafff5f136fdd9f4ca1493") } }
 ```
 
 表面我们成功地插入了两个数据。注意批量插入的格式是这样的：`db.movie.insert([{ITEM1},{ITEM2}])`。几部电影的外面需要用[]括起来。
@@ -435,20 +430,20 @@ db.movie.find({'tags':'drama'},{'debut':1,'title':1,'_id':0}).pretty()
 很多情况下你需要更新你的数据库，比如有人对某部电影点了个赞，那么你需要更新相应的数据库。比如有人对《七宗罪》点了个赞，而它本来的赞的个数是134370，那么你需要更新到134371。可以这样操作：
 
 ```
-db.movie.update({title:'Seven'}, {$set:{likes:134371}})
+db.movie.updateOne({title:'Seven'}, {$set:{likes:134371}})
 ```
 
 第一个大括号里表明要选取的对象，第二个表明要改动的数据。请注意上述的操作相当不现实，因为你首先要知道之前的数字是多少，然后加一，但通常你不读取数据库的话，是不会知道这个数(134370)的。MongoDB提供了一种简便的方法，可以对现有条目进行增量操作。假设又有人对《七宗罪》点了两个赞，则可以：
 
 ```
-db.movie.update({title:'Seven'}, {$inc:{likes:2}})
+db.movie.updateOne({title:'Seven'}, {$inc:{likes:2}})
 ```
 
 如果你查询的话，会发现点赞数变为134373了，这里用的是`$inc`。除了增量更新，MongoDB还提供了很多灵活的更新选项，具体可以看：http://docs.mongodb.org/manual/reference/operator/update-field/ 。
 
-注意如果有多部符合要求的电影。则默认只会更新第一个。如果要多个同时更新，要设置`{multi:true}`，像下面这样：
+注意如果有多部符合要求的电影。则默认只会更新第一个。如果要多个同时更新，要用`updateMany`，像下面这样：
 ```
-db.movie.update({}, {$inc:{likes:10}},{multi:true})
+db.movie.updateMany({}, {$inc:{likes:10}})
 ```
 
 所有电影的赞数都多了10.
@@ -456,9 +451,9 @@ db.movie.update({}, {$inc:{likes:10}},{multi:true})
 注意，以上的更新操作会替换掉原来的值，所以如果你是想在原有的值得基础上增加一个值的话，则应该用`$push`，比如，为《七宗罪》添加一个popular的tags。
 
 ```
-db.movie.update({'title':'Seven'}, {$push:{'tags':'popular'}})
+db.movie.updateOne({'title':'Seven'}, {$push:{'tags':'popular'}})
 ```
-你会发现《七宗罪》现在有四个标签：
+我们查询一下`db.movie.find({'title':'Seven'},{'tags':1,'title':1}`，你会发现《七宗罪》现在有四个标签：
 
 ```
 	"tags" : [
