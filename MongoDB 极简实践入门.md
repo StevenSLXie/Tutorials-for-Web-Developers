@@ -508,9 +508,9 @@ db.movie.dropIndex('index_name')
 MongoDB支持类似于SQL里面的`GROUP BY`操作。比如当有一张学生成绩的明细表时，我们可以找出每个分数段的学生各有多少。为了实现这个操作，我们需要稍加改动我们的数据库。执行以下三条命令：
 
 ```
-db.movie.update({title:'Seven'},{$set:{grade:1}})
-db.movie.update({title:'Forrest Gump'},{$set:{grade:1}})
-db.movie.update({title:'Fight Club'},{$set:{grade:2}})
+db.movie.updateOne({title:'Seven'},{$set:{grade:1}})
+db.movie.updateOne({title:'Forrest Gump'},{$set:{grade:1}})
+db.movie.updateOne({title:'Fight Club'},{$set:{grade:2}})
 ```
 
 这几条是给每部电影加一个虚拟的分级，前两部是归类是一级，后一部是二级。
@@ -621,7 +621,7 @@ db.movie.find({$text:{$search:"Gump"}}).pretty()
 
 注意text和search前面的$符号。
 
-这个例子里，文本搜索作用不是非常明显。但假设我们要搜索的key是一个长长的文档，这种text search的方便性就显现出来了。MongoDB目前支持15种语言的文本搜索。
+这个例子里，文本搜索作用不是非常明显。但假设我们要搜索的key是一个长长的文档，这种text search的方便性就显现出来了。
 
 <h4>14. 正则表达式</h4>
 
@@ -661,7 +661,7 @@ db.movie.find({title: /fight.*b/i}).pretty()
 
 至此，MongoDB的最基本的内容就介绍得差不多了。如果有什么遗漏的以后我会补上來。如果你一路看到底完全了这个入门教程，恭喜你，你一定是一个有毅力的人。
 
-把这个文档过一遍，不会让你变成一个MongoDB的专家(如果会那就太奇怪了)。但如果它能或多或少减少你上手的时间，或者让你意识到“咦，MongoDB其实没那么复杂”，那么这个教程的目的也就达到啦。
+把这个文档过一遍，不会让你变成一个MongoDB的专家(如果会那就太奇怪了)。但如果它能或多或少减少你上手的时间，或者让你意识到“MongoDB其实没那么复杂”，那么这个教程的目的也就达到啦。
 
 这个文档是匆忙写就的，出错简直是一定的。如果您发现了任何错误或者有关于本文的任何建议，麻烦发邮件给我（stevenslxie at gmail.com）或者在GitHub上直接交流，不胜感激。
 
