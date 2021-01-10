@@ -75,6 +75,21 @@ SQL具备了强大了的深度查询能力，能满足各式各样的查询要�
 
 <h4>3. 安装与环境</h4>
 
+<h5> 3.1 使用MongoDB Atlas + Compass（推荐）</h5>
+	
+(2021.1.10更新) MongoDB 提供了一个叫作Atlas的云服务，可以直接在云上架设Server，然后我们可以在本地远程连接Server。这样做的好处是，用户不必下载、安装和架设本地的MongoDB服务器。对于初学者而言，这个方式要更简单，可以最大程度地避免安装过程中的各种坑。
+
+简单步骤如下：
+
+<ul>
+	<li> 1. Start Mongo Atlas： https://www.mongodb.com/cloud/atlas 。 基本上，按默认设置走即可</li>
+	<li> 2. 设置完毕后，点击connect，并点选通过MongoDB Compass连接服务器。按提示下载Compass</li>
+	<li> 3. 用之前Atlas里面设置的账号密码登录Compass，然后点击左下角的MongoSH Beta，就可以输入命令行了</li>
+	
+</ul>
+
+<h5> 3.2 本地架设server </h5>
+
 MongoDB可以在Windows、Linux、Mac OS X等主流平台运行，而且下载和安装非常简单，非常友好。这篇文档的例子采用MongoDB 2.6版本，均在OS X测试过，有充足的理由相信，在其它平台也能顺利运行。
 
 Windows的安装和设置可以参考：http://www.w3cschool.cc/mongodb/mongodb-window-install.html；
